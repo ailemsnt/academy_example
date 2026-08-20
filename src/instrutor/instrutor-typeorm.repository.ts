@@ -13,9 +13,15 @@ export class InstrutorTypeormRepository implements InstrutorRepository {
     @Inject(TYPEORM_INSTRUTOR_REPOSITORY)
     private readonly repository: Repository<Instrutor>,
   ) {}
+
   get(id: number): Promise<Instrutor | null> {
     return this.repository.findOneBy({ id });
   }
+
+  getAll(): Promise<Instrutor[]> {
+    return this.repository.find();
+  }
+
   create(instrutor: CreateInstrutorDto): Promise<Instrutor> {
     const instrutorEntity = this.repository.create(instrutor);
     return this.repository.save(instrutorEntity);

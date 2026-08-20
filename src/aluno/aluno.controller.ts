@@ -27,16 +27,21 @@ export class AlunoController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.alunoService.findOne(+id);
+    return this.alunoService.findOne(Number(id));
   }
 
   @Put(':id')
   update(@Param('id') id: string, @Body() updateAlunoDto: UpdateAlunoDto) {
-    return this.alunoService.update(+id, updateAlunoDto);
+    return this.alunoService.update(Number(id), updateAlunoDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.alunoService.remove(+id);
+  async remove(@Param('id') id: string) {
+    await this.alunoService.remove(Number(id));
+    return  {
+      statusCode: 200,
+      message: `Aluno ${id} removido com sucesso.`
+    };
+    
   }
 }
