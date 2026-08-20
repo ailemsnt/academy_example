@@ -1,26 +1,50 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateAlunoDto } from './dto/create-aluno.dto';
 import { UpdateAlunoDto } from './dto/update-aluno.dto';
+import { AlunoRepository } from './aluno.repository';
+import { Aluno } from '../@common/entities/aluno.entity';
 
 @Injectable()
 export class AlunoService {
-  create(createAlunoDto: CreateAlunoDto) {
-    return 'This action adds a new aluno';
+  constructor(private readonly alunoRepository: AlunoRepository) {}
+
+  async create(createAlunoDto: CreateAlunoDto) {
+    return this.alunoRepository.create(createAlunoDto);
   }
 
-  findAll() {
-    return `This action returns all aluno`;
+  async findAll() {
+    const alunos = await this.alunoRepository.getAll();
+    if (!alunos || alunos.length === 0) {
+      throw new NotFoundException(`Nenhum aluno encontrado.`);
+    }
+
+    return alunos;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} aluno`;
+  async findOne(id: number) {
+    const aluno = await this.alunoRepository.get(id);
+    if (!aluno) {
+      throw new NotFoundException(`Aluno ${id} não encontrado.`);
+    }
+
+    return aluno;
   }
 
-  update(id: number, updateAlunoDto: UpdateAlunoDto) {
-    return `This action updates a #${id} aluno`;
+  async update(id: number, updateAlunoDto: UpdateAlunoDto): Promise<Aluno | null> {
+    const aluno = await this.alunoRepository.get(id);
+    if (!aluno) {
+      throw new NotFoundException(`Aluno ${id} não encontrado.`);
+    }
+    
+    await this.alunoRepository.update(id, updateAlunoDto);
+    return this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} aluno`;
+  async remove(id: number) {
+    const aluno = await this.alunoRepository.get(id);
+    if (!aluno) {
+      throw new NotFoundException(`Aluno ${id} não encontrado.`);
+    }
+    await this.alunoRepository.remove(id);
   }
 }
