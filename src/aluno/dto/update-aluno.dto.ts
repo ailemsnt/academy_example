@@ -6,5 +6,5 @@ export class UpdateAlunoDto extends PartialType(CreateAlunoDto) {
   @IsString()
   nome!: string;
   @IsString()
-  plano!: string; 
+  plano!: string;
 }

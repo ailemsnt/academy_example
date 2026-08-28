@@ -38,10 +38,9 @@ export class AlunoController {
   @Delete(':id')
   async remove(@Param('id') id: string) {
     await this.alunoService.remove(Number(id));
-    return  {
+    return {
       statusCode: 200,
-      message: `Aluno ${id} removido com sucesso.`
+      message: `Aluno ${id} removido com sucesso.`,
     };
-    
   }
 }

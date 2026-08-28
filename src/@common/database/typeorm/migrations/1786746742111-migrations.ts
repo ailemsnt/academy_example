@@ -8,7 +8,7 @@ export class Migrations1786746742111 implements MigrationInterface {
       `CREATE TABLE "aluno" ("id" integer GENERATED ALWAYS AS IDENTITY NOT NULL, "nome" character varying(255) NOT NULL, "plano" character varying(255) NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP, CONSTRAINT "pk_aluno" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
-      `CREATE TABLE "instrutor" ("id" integer GENERATED ALWAYS AS IDENTITY NOT NULL, "nome" character varying(255) NOT NULL, "especialidade" character varying(255) NOT NULL, "registro" character varying(255) NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP, CONSTRAINT "pk_instrutor" PRIMARY KEY ("id"))`,
+      `CREATE TABLE "instrutor" ("id" integer GENERATED ALWAYS AS IDENTITY NOT NULL, "nome" character varying(255) NOT NULL, "senha" character varying(255) NOT NULL,"especialidade" character varying(255) NOT NULL, "registro" character varying(255) NOT NULL, "created_at" TIMESTAMP NOT NULL DEFAULT now(), "updated_at" TIMESTAMP NOT NULL DEFAULT now(), "deleted_at" TIMESTAMP, CONSTRAINT "pk_instrutor" PRIMARY KEY ("id"))`,
     );
     await queryRunner.query(
       `CREATE UNIQUE INDEX "idx_instrutor_registro" ON "instrutor"  ("registro") `,

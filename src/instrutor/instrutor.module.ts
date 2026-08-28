@@ -8,8 +8,10 @@ import {
 import { InstrutorRepository } from './instrutor.repository';
 import { AppDataSource } from '../@common/database/typeorm/typeorm';
 import { Instrutor } from '../@common/entities/instrutor.entity';
+import { JwtModule } from '../auth/jwt.module';
 
 @Module({
+  imports: [JwtModule],
   controllers: [InstrutorController],
   providers: [
     InstrutorService,

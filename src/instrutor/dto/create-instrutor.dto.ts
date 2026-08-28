@@ -7,4 +7,6 @@ export class CreateInstrutorDto {
   especialidade!: string;
   @IsString()
   registro!: string;
+  @IsString()
+  senha!: string;
 }

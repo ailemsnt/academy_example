@@ -30,12 +30,15 @@ export class AlunoService {
     return aluno;
   }
 
-  async update(id: number, updateAlunoDto: UpdateAlunoDto): Promise<Aluno | null> {
+  async update(
+    id: number,
+    updateAlunoDto: UpdateAlunoDto,
+  ): Promise<Aluno | null> {
     const aluno = await this.alunoRepository.get(id);
     if (!aluno) {
       throw new NotFoundException(`Aluno ${id} não encontrado.`);
     }
-    
+
     await this.alunoRepository.update(id, updateAlunoDto);
     return this.findOne(id);
   }

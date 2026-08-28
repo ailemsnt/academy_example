@@ -5,16 +5,24 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Req,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateInstrutorDto } from './dto/create-instrutor.dto';
 import { InstrutorService } from './instrutor.service';
+import type { Request } from 'express';
+import { getAuthUser } from '../@common/util/get-auth-user';
+import { JwtGuard } from '../@common/guards/jwt.guard';
 
 @Controller('instrutores')
+@UseGuards(JwtGuard)
 export class InstrutorController {
   constructor(private readonly instrutorService: InstrutorService) {}
 
   @Get(':id')
-  get(@Param('id', new ParseIntPipe()) id: number) {
+  get(@Param('id', new ParseIntPipe()) id: number, @Req() req: Request) {
+    const authUser = getAuthUser(req);
+    console.log('Usuário logado: ', authUser);
     return this.instrutorService.get(id);
   }
 
