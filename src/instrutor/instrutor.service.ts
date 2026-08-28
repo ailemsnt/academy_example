@@ -32,7 +32,7 @@ export class InstrutorService {
 
     if (!instrutor) {
       throw new UnauthorizedException(
-        `Instrutor ${loginDto.registro} not found`,
+        `Instrutor ${loginDto.registro} não encontrado`,
       );
     }
 
@@ -50,7 +50,7 @@ export class InstrutorService {
   async get(id: number) {
     const instrutor = await this.instrutorRepository.get(id);
     if (!instrutor) {
-      throw new NotFoundException(`Instrutor ${id} not found`);
+      throw new NotFoundException(`Instrutor ${id} `);
     }
 
     return instrutor;

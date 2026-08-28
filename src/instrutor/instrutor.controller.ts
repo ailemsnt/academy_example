@@ -6,13 +6,16 @@ import {
   ParseIntPipe,
   Post,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateInstrutorDto } from './dto/create-instrutor.dto';
 import { InstrutorService } from './instrutor.service';
 import type { Request } from 'express';
 import { getAuthUser } from '../@common/util/get-auth-user';
+import { JwtGuard } from '../@common/guards/jwt.guard';
 
 @Controller('instrutores')
+@UseGuards(JwtGuard)
 export class InstrutorController {
   constructor(private readonly instrutorService: InstrutorService) {}
 

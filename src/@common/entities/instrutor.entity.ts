@@ -16,7 +16,7 @@ export class Instrutor {
   @Column('varchar', { length: 255 })
   nome!: string;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 255, select: false })
   senha!: string;
 
   @Column('varchar', { length: 255 })
